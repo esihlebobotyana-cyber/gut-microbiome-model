@@ -57,8 +57,8 @@ function run_gut_microbiota_model()
     [t_cont, y_cont] = ode15s(@(t, y) microbiota_ode(t, y, params), tspan, y0, options);
     
     % Convert time from days to age in months
-    t_cess_mo = t_cess / 30.4375;
-    t_cont_mo = t_cont / 30.4375;
+    t_cess_mo = t_cess / 30.4167;
+    t_cont_mo = t_cont / 30.4167;
     
     % Define color palette 
     colors = [0.20 0.50 0.72;   % X1: B. infantis (blue)
