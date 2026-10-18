@@ -6,10 +6,6 @@ This project investigates the development of the infant gut microbial community 
 
 A mathematical model is implemented in MATLAB to explore how different breastfeeding scenarios may influence microbial population dynamics over time.
 
-## Research Question
-
-How do microbial community trajectories differ from 1 to 3 years between children who continue breastfeeding beyond 12 months and those who cease breastfeeding at 12 months?
-
 ## Model Description
 
 The model describes changes in microbial populations over time using a system of differential equations.
