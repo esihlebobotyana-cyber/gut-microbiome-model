@@ -32,7 +32,7 @@ The feeding scenarios are represented mathematically using the model's feeding-r
 1. Download or clone this repository.
 2. Open MATLAB or MATLAB Online.
 3. Upload or open the downloaded source files.
-4. Set the MATLAB Current Folder to the directory containing the files.
+4. Set the MATLAB Current Folder to the directory containing the file.
 5. Run the main MATLAB script.
 6. Inspect the generated plots and numerical results.
 
