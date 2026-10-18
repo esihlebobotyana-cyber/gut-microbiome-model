@@ -1,16 +1,16 @@
-function gut_microbiota_model()
+function run_gut_microbiota_model()
     % Simulation time setup
     t_start = 365;      % 12 months (in days)
     t_end = 1095;       % 36 months (in days)
     tspan = [t_start, t_end];
     
     % Initial conditions [X1, X2, X3, X4, X5, X6, M] at t = 12
-    y0 = [0.17; 0.01; 0.02; 0.9; 0.6; 0.4; 0.001]; 
+    y0 = [0.16; 0.11; 0.07; 0.56; 0.07; 0.04; 0.001]; 
     
     % Model parameters
     params.r = [1.0; 1.0; 1.0; 0.8; 0.6; 0.6];       % Growth rates per day
-    params.theta_m = [0.9; 0.7; 0.5; 0.3; 0.2; 0.2]; % Milk affinity
-    params.theta_s = [0; 0.3; 0.4; 0.6; 0.5; 0.8];   % Solid/host-glycan affinity
+    params.theta_m = [0.9; 0.5; 0.7; 0.3; 0.2; 0.2]; % Milk affinity
+    params.theta_s = [0.1; 0.4; 0.3; 0.6; 0.5; 0.8];   % Solid/host-glycan affinity
     params.f = [0.01; 0.03; 0.05; 0.03; 0.02; 0.02];% Environmental supply rates
     params.mu = [50; 50; 50; 200; 200; 200];        % Immune clearance rates
     params.w = [1; 0; 0; 0; 0; 0];                  % Immune stimulation weights
@@ -30,16 +30,18 @@ function gut_microbiota_model()
     
     
     % Competition matrix A 
-    % Species order: B_i (infantis), B_b (breve), B_r (bifidum), 
-    % B_a (Bacteroides), F (Faecalibacterium), R (Roseburia)
+    % Species order: B_i (infantis), B_b (breve), B_r (bifidum), B_a
+    % (Bacteroides), F (Faecalibacterium), R (Roseburia)
     
-    params.A = [ 1.00, 1.00, 0.50, 0.50, 0.25, 0.25;   % B_i
-                 1.00, 1.00, 0.50, 0.50, 0.25, 0.25;   % B_b
-                 0.50, 0.50, 1.00, 1.00, 0.25, 0.25;   % B_r
-                 0.50, 0.50, 1.00, 1.00, 0.25, 0.50;   % B_a
-                 0.25, 0.25, 0.25, 0.25, 1.00, 0.50;   % F
-                 0.25, 0.25, 0.25, 0.50, 0.50, 1.00 ]; % R
-  
+    params.A = [ 0.0, 1.0, 0.50, 0.50, 0.25, 0.25;   % B_i
+                 1.0, 0.0, 0.50, 0.50, 0.25, 0.25;   % B_b
+                 0.50, 0.50, 0.0, 1.0, 0.25, 0.25;   % B_r
+                 0.50, 0.50, 1.0, 0.0, 0.25, 0.50;   % B_a
+                 0.25, 0.25, 0.25, 0.25, 0.0, 0.50;   % F
+                 0.25, 0.25, 0.25, 0.50, 0.50, 0.0]; % R
+    for i = 1:6
+        params.A(i, i) = 1.0;
+    end
     
     % ODE Solver Options (using stiff solver ode15s)
     options = odeset('RelTol', 1e-6, 'AbsTol', 1e-8);
@@ -68,9 +70,8 @@ function gut_microbiota_model()
               0.61 0.44 0.72;   % X5: Faecalibacterium (purple)
               0.55 0.34 0.29];  % X6: Roseburia group (brown)
           
-    taxa_labels = {'B. infantis','B. breve', 'B. bifidum', ...
+    taxa_labels = {'B. infantis', 'B. breve', 'B. bifidum', ...
                    'Bacteroides', 'Faecalibacterium', 'Roseburia group'};
-
     % ===================================================================
     % FIGURE 1: Log-scale Species Trajectories
     % ===================================================================
@@ -83,7 +84,6 @@ function gut_microbiota_model()
     end
     grid on; ylim([1e-4, 2]); xlim([12, 36]);
     title('Cessation at 12 months (h = 365 d)');
-    xline(12, '--k', '12 months');
     xlabel('Age (months)'); ylabel('Density (non-dim., /K)');
     legend(taxa_labels, 'Location', 'southwest');
     
@@ -95,7 +95,6 @@ function gut_microbiota_model()
     grid on; ylim([1e-4, 2]); xlim([12, 36]);
     title('Continued breastfeeding to 36 months (h = 1095 d)');
     xlabel('Age (months)'); ylabel('Density (non-dim., /K)');
-
     % ===================================================================
     % FIGURE 2: Community Composition as Relative Abundance
     % ===================================================================
@@ -123,7 +122,6 @@ function gut_microbiota_model()
     xlim([12, 36]); ylim([0, 1]); grid on;
     title('Continued breastfeeding to 36 months (h = 1095 d)');
     xlabel('Age (months)'); ylabel('Relative abundance');
-
     % ===================================================================
     % FIGURE 3: Mechanism Panels (Guild Totals, Immune Factor M, Diet Z)
     % ===================================================================
@@ -170,7 +168,6 @@ function gut_microbiota_model()
     xlabel('Age (months)'); ylabel('Z(t)');
     legend({'Cessation at 12 months', 'Continued breastfeeding'}, 'Location', 'best');
 end
-
 % =======================================================================
 % ODE System Definition
 % =======================================================================
