@@ -25,7 +25,7 @@ The feeding scenarios are represented mathematically using the model's feeding-r
 ## Requirements
 
 - MATLAB or access to MATLAB Online.
-- The MATLAB source files included in this repository.
+- The MATLAB source file included in this repository.
 
 ## How to Run the Model
 
