@@ -29,9 +29,9 @@ The feeding scenarios are represented mathematically using the model's feeding-r
 
 ## How to Run the Model
 
-1. Download or clone this repository.
+1. Download the code file titled gut_microbiota_model.
 2. Open MATLAB or MATLAB Online.
-3. Upload or open the downloaded source files.
+3. Upload or open the downloaded source file.
 4. Set the MATLAB Current Folder to the directory containing the file.
 5. Run the main MATLAB script.
 6. Inspect the generated plots and numerical results.
