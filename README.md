@@ -51,7 +51,7 @@ The feeding scenarios are represented mathematically using the model's feeding-r
 The model generates three primary output figures:
 Figure 1: Population Density Trajectories
 Figure 2: Relative Abundance
-Figure 3: Ecological mechanisms and immune coupling ( Milk fraction of diet, Immune factor and guild totals)
+Figure 3: Milk fraction of diet, immune factor and guild totals
 
 The resulting plots can be used to compare population trajectories and investigate how the model responds to different feeding conditions and parameter choices.
 
